@@ -199,11 +199,11 @@ const Sidebar = () => {
                     </p>
                   </div>
                 </div>
-                {Boolean(conv?.unseenMsg) && (
+                {/* {Boolean(conv?.unseenMsg) && (
                   <p className="text-xs w-6 h-6 flex justify-center items-center ml-auto p-1 bg-primary text-white font-semibold rounded-full">
                     {conv?.unseenMsg}
                   </p>
-                )}
+                )} */}
               </NavLink>
             );
           })}

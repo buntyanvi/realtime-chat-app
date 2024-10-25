@@ -204,6 +204,31 @@ io.on("connection", async (socket) => {
       }
     });
 
+    socket.on("clear-chat", async ({ sender, receiver }) => {
+      try {
+        const conversation = await ConversationModel.findOne({
+          $or: [
+            { sender, receiver },
+            { sender: receiver, receiver: sender },
+          ],
+        });
+
+        if (!conversation) return;
+
+        await MessageModel.deleteMany({ _id: { $in: conversation.messages } });
+
+        await ConversationModel.updateOne(
+          { _id: conversation._id },
+          { $set: { messages: [] } }
+        );
+
+        io.to(sender).emit("deleted", await getConversation(sender));
+        io.to(receiver).emit("deleted", await getConversation(receiver));
+      } catch (error) {
+        console.error("Error clearing chat:", error);
+      }
+    });
+
     socket.on("disconnect", () => {
       onlineUser.delete(user._id.toString());
       console.log("User disconnected:", socket.id);

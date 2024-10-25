@@ -24,4 +24,21 @@ router.post("/update-user", updateUserDetails);
 //search user
 router.post("/search-user", searchUser);
 
+router.post("/translate", async (req, res) => {
+  try {
+    console.log(req.body);
+    // const response = await fetch("https://translate.opentran.net/translate", {
+    //   body: req.body,
+    //   headers: { "Content-Type": "application/json" },
+    //   method: "POST",
+    // });
+    // const data = await response.json();
+    // console.log({ data });
+    // res.json(data); // Send translated response back to frontend
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+});
+
 module.exports = router;
