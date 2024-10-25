@@ -270,7 +270,7 @@ const sendScheduledMessage = async (scheduledMessage, io) => {
   }
 };
 //every 10 seconds
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/8 * * * *", async () => {
   try {
     const currentTime = new Date();
     const messages = await ScheduledMessageModel.find({
